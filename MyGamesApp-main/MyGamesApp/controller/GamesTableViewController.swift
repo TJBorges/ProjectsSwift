@@ -44,7 +44,6 @@ class GamesTableViewController: UITableViewController {
             print(error.localizedDescription)
         }
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

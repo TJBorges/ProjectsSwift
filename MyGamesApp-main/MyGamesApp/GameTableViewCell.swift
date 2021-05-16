@@ -11,6 +11,7 @@ import UIKit
 class GameTableViewCell: UITableViewCell {
 
     @IBOutlet weak var ivCover: UIImageView!
+    @IBOutlet weak var ivCoverPlataforma: UIImageView!
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var lbConsole: UILabel!
     
