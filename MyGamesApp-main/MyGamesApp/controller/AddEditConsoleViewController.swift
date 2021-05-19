@@ -26,6 +26,7 @@ class AddEditConsoleViewController: UIViewController {
     
     
     @IBOutlet weak var tfConsole: UITextField!
+    @IBOutlet weak var lbImagem: UILabel!
     @IBOutlet weak var btCover: UIButton!
     @IBOutlet weak var ivCover: UIImageView!
     @IBOutlet weak var btAddEdit: UIButton!
@@ -47,6 +48,7 @@ class AddEditConsoleViewController: UIViewController {
         if console != nil {
             title = "Editar jogo"
             btAddEdit.setTitle("ALTERAR", for: .normal)
+            lbImagem.text = "Clique na imagem para editar"
             tfConsole.text = console.name
             
             // tip. alem do console pegamos o indice atual para setar o picker view

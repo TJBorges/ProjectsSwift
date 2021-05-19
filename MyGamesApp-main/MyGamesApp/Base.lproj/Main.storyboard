@@ -115,7 +115,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Capa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKJ-xZ-wRp">
-                                <rect key="frame" x="25" y="380" width="40" height="20.5"/>
+                                <rect key="frame" x="25" y="380" width="40" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -136,14 +136,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGm-38-cGD">
-                                <rect key="frame" x="42" y="409" width="330" height="361"/>
+                                <rect key="frame" x="42" y="409.5" width="330" height="360.5"/>
                                 <state key="normal" title="Toque para adicionar a imagem de capa"/>
                                 <connections>
                                     <action selector="AddEditCover:" destination="bpG-4F-ewj" eventType="touchUpInside" id="qxL-jj-K1G"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bLR-hd-nZo">
-                                <rect key="frame" x="42" y="408.5" width="330" height="361.5"/>
+                                <rect key="frame" x="42" y="409" width="330" height="361"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -184,6 +184,7 @@
                         <outlet property="btCover" destination="FGm-38-cGD" id="wgO-tG-UTj"/>
                         <outlet property="dpReleaseDate" destination="Fbb-ep-11J" id="44I-Qo-UUH"/>
                         <outlet property="ivCover" destination="bLR-hd-nZo" id="Z0Y-lT-2Il"/>
+                        <outlet property="lbImagem" destination="YKJ-xZ-wRp" id="c1e-PP-BF0"/>
                         <outlet property="tfConsole" destination="HdH-xR-5ck" id="bur-fc-1Ck"/>
                         <outlet property="tfTitle" destination="oHX-wL-7sI" id="v1I-Hv-zUD"/>
                     </connections>
@@ -436,7 +437,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Imagem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6m4-yj-tgS">
-                                <rect key="frame" x="42" y="238" width="70" height="21"/>
+                                <rect key="frame" x="42" y="238" width="330" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -444,22 +445,22 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="HOd-TB-iKl" firstAttribute="trailing" secondItem="6m4-yj-tgS" secondAttribute="trailing" constant="302" id="0Ge-8w-c6T"/>
                             <constraint firstItem="VRx-2g-CIo" firstAttribute="top" secondItem="HOd-TB-iKl" secondAttribute="top" constant="25" id="0jy-sz-4Vj"/>
                             <constraint firstItem="C7R-rE-cSu" firstAttribute="bottom" secondItem="FPh-yU-Ljt" secondAttribute="bottom" id="2lo-FX-oad"/>
+                            <constraint firstItem="6m4-yj-tgS" firstAttribute="trailing" secondItem="C7R-rE-cSu" secondAttribute="trailing" id="6xc-QC-imh"/>
+                            <constraint firstItem="FPh-yU-Ljt" firstAttribute="top" secondItem="6m4-yj-tgS" secondAttribute="bottom" constant="19" id="Amm-U2-WRp"/>
                             <constraint firstItem="4Fs-pB-s0L" firstAttribute="top" secondItem="C7R-rE-cSu" secondAttribute="bottom" constant="8" symbolic="YES" id="Jey-rD-qTz"/>
                             <constraint firstItem="C7R-rE-cSu" firstAttribute="trailing" secondItem="4Fs-pB-s0L" secondAttribute="trailing" id="ONi-fB-6GV"/>
+                            <constraint firstItem="6m4-yj-tgS" firstAttribute="leading" secondItem="FPh-yU-Ljt" secondAttribute="leading" id="Rwf-F2-hrZ"/>
                             <constraint firstItem="HOd-TB-iKl" firstAttribute="trailing" secondItem="VRx-2g-CIo" secondAttribute="trailing" constant="25" id="SVG-Of-oTy"/>
                             <constraint firstItem="HOd-TB-iKl" firstAttribute="trailing" secondItem="4Fs-pB-s0L" secondAttribute="trailing" constant="42" id="Uqy-gc-JTP"/>
                             <constraint firstItem="VRx-2g-CIo" firstAttribute="leading" secondItem="HOd-TB-iKl" secondAttribute="leading" constant="25" id="YWs-WX-w5v"/>
                             <constraint firstItem="C7R-rE-cSu" firstAttribute="leading" secondItem="4Fs-pB-s0L" secondAttribute="leading" id="bJg-Gf-HMG"/>
-                            <constraint firstItem="FPh-yU-Ljt" firstAttribute="top" secondItem="6m4-yj-tgS" secondAttribute="bottom" constant="19" id="jcc-ZP-66Z"/>
                             <constraint firstItem="4Fs-pB-s0L" firstAttribute="leading" secondItem="HOd-TB-iKl" secondAttribute="leading" constant="42" id="jhi-wV-Mgq"/>
                             <constraint firstItem="C7R-rE-cSu" firstAttribute="trailing" secondItem="FPh-yU-Ljt" secondAttribute="trailing" id="q4g-wR-Wea"/>
                             <constraint firstItem="HOd-TB-iKl" firstAttribute="bottom" secondItem="4Fs-pB-s0L" secondAttribute="bottom" constant="5" id="qRf-hC-yYb"/>
                             <constraint firstItem="C7R-rE-cSu" firstAttribute="leading" secondItem="FPh-yU-Ljt" secondAttribute="leading" id="r7r-nk-z6p"/>
                             <constraint firstItem="C7R-rE-cSu" firstAttribute="top" secondItem="FPh-yU-Ljt" secondAttribute="top" id="wvd-UI-VNN"/>
-                            <constraint firstItem="6m4-yj-tgS" firstAttribute="leading" secondItem="FPh-yU-Ljt" secondAttribute="leading" id="x7R-eR-ybZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HOd-TB-iKl"/>
                     </view>
@@ -468,6 +469,7 @@
                         <outlet property="btAddEdit" destination="4Fs-pB-s0L" id="Kup-ub-8mQ"/>
                         <outlet property="btCover" destination="FPh-yU-Ljt" id="zVl-E8-i1V"/>
                         <outlet property="ivCover" destination="C7R-rE-cSu" id="bo3-BV-EiW"/>
+                        <outlet property="lbImagem" destination="6m4-yj-tgS" id="Q1G-mr-Rjz"/>
                         <outlet property="tfConsole" destination="VRx-2g-CIo" id="9BU-2Y-Jc2"/>
                     </connections>
                 </viewController>
