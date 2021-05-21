@@ -167,7 +167,6 @@ class CarsTableViewController: UITableViewController {
             }
         }
     }
-    
 
     /*
     // Override to support rearranging the table view.

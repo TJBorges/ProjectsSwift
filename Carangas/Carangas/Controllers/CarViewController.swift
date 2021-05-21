@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import Alamofire
 
 class CarViewController: UIViewController {
 
@@ -23,8 +24,7 @@ class CarViewController: UIViewController {
 
     // MARK: - Super Methods
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()       
         
     }
     

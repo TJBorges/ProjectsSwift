@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Alamofire
 
 enum CarError {
     case url
@@ -47,16 +47,16 @@ class REST {
     
     
     
-    class func delete(car: Car, onComplete: @escaping (Bool) -> Void ) {
-        applyOperation(car: car, operation: .delete, onComplete: onComplete)
+    class func delete(car: Car, onComplete: @escaping (Bool) -> Void, onError: @escaping (CarError) -> Void) {
+        applyOperation(car: car, operation: .delete, onComplete: onComplete, onError: onError)
     }
     
-    class func update(car: Car, onComplete: @escaping (Bool) -> Void ) {
-        applyOperation(car: car, operation: .update, onComplete: onComplete)
+    class func update(car: Car, onComplete: @escaping (Bool) -> Void, onError: @escaping (CarError) -> Void) {
+        applyOperation(car: car, operation: .update, onComplete: onComplete, onError: onError)
     }
     
-    class func save(car: Car, onComplete: @escaping (Bool) -> Void ) {
-        applyOperation(car: car, operation: .save, onComplete: onComplete)
+    class func save(car: Car, onComplete: @escaping (Bool) -> Void, onError: @escaping (CarError) -> Void) {
+        applyOperation(car: car, operation: .save, onComplete: onComplete, onError: onError)
     }
     
     // o metodo pode retornar um array de nil se tiver algum erro
@@ -104,69 +104,48 @@ class REST {
             return
         }
         
-        REST.session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+        Alamofire.request(url).validate().responseJSON { response in
             
-            // 1
-            if error == nil {
+            switch response.result {
+            case .success:
                 
-                // algo válido foi retornado do servidor...
-                
-                // 2
-                guard let response = response as? HTTPURLResponse else {
-                    onError(.noResponse)
-                    return
+                if response.data == nil {
+                    onError(.noData)
                 }
                 
-                if response.statusCode == 200 {
+                do {
+                    let cars = try JSONDecoder().decode([Car].self, from: response.data!)
                     
-                    // servidor respondeu com sucesso :)
+                    onComplete(cars)
                     
-                    // 3
-                    // obter o valor de data
-                    guard let data = data else {
-                        // ERROR porque o data é invalido
-                        onError(.noData)
-                        return
-                    }
-                    
-                    do {
-                        let cars = try JSONDecoder().decode([Car].self, from: data)
-                        // pronto para reter dados
-                        
-                        onComplete(cars) // SUCESSO
-                        
-                    } catch {
-                        // algum erro ocorreu com os dados
-                        print(error.localizedDescription)
-                        onError(.invalidJSON)
-                    }
-                    
-                } else {
-                    print("Algum status inválido(-> \(response.statusCode) <-) pelo servidor!! ")
-                    onError(.responseStatusCode(code: response.statusCode))
+                } catch {
+                    print(error.localizedDescription)
+                    onError(.invalidJSON)
                 }
                 
-            } else {
-                print(error.debugDescription)
-                onError(.taskError(error: error!))
+            case let .failure(error):
+                debugPrint(error)
+                onError(.taskError(error: error))
             }
             
-        }.resume()
+        }
         
     }
     
     
-    
-    private class func applyOperation(car: Car, operation: RESTOperation , onComplete: @escaping (Bool) -> Void ) {
+    private class func applyOperation(car: Car, operation: RESTOperation,
+                                      onComplete: @escaping (Bool) -> Void,
+                                      onError: @escaping (CarError) -> Void) {
         
         // o endpoint do servidor para update é: URL/id
         let urlString = basePath + "/" + (car._id ?? "")
         
         guard let url = URL(string: urlString) else {
-            onComplete(false)
+            //onComplete(false)
+            onError(.url)
             return
         }
-        var request = URLRequest(url: url)
+        //var request = URLRequest(url: url)
         var httpMethod: String = ""
         
         switch operation {
@@ -177,31 +156,23 @@ class REST {
         case .update:
             httpMethod = "PUT"
         }
-        request.httpMethod = httpMethod
         
-        // transformar objeto para um JSON, processo contrario do decoder -> Encoder
-        guard let json = try? JSONEncoder().encode(car) else {
-            onComplete(false)
-            return
-        }
-        request.httpBody = json
-        
-        session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if error == nil {
-                // verificar e desembrulhar em uma unica vez
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200, let _ = data else {
-                    onComplete(false)
-                    return
+        Alamofire.request(urlString,
+                          method: HTTPMethod.init(rawValue: httpMethod),
+                          parameters: car,
+                          encoder: JSONParameterEncoder.default)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData { response in
+                
+                switch response.response?.statusCode {
+                case 200:
+                    onComplete(true)
+                default:
+                    debugPrint(response.error ?? "Erro ao realizar operação")
+                    onError(.taskError(error: response.error!))
                 }
-                
-                // ok
-                onComplete(true)
-                
-            } else {
-                onComplete(false)
-            }
-            
-        }.resume()
+        }
         
     }
     
